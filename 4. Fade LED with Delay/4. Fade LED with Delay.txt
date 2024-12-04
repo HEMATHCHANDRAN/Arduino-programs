@@ -1,0 +1,98 @@
+CODE:
+const int ledPin = 11;  // LED connected to PWM pin 9
+
+void setup() {
+  pinMode(ledPin, OUTPUT);  // Set pin 9 as output
+}
+
+void loop() {
+  // Gradually increase brightness
+  for (int brightness = 0; brightness <= 255; brightness++) {
+    analogWrite(ledPin, brightness);  // Set LED brightness
+    delay(10);  // Wait 10ms before increasing brightness
+  }
+
+  // Gradually decrease brightness
+  for (int brightness = 255; brightness >= 0; brightness--) {
+    analogWrite(ledPin, brightness);  // Set LED brightness
+    delay(10);  // Wait 10ms before decreasing brightness
+  }
+}
+
+Fade LED with Delay
+Goal
+To create a gradual fade effect for an LED by varying its brightness over time.
+
+Concept
+Use PWM (Pulse Width Modulation) on an Arduino pin to control the brightness of an LED.
+Gradually increase and decrease the brightness of the LED by adjusting the duty cycle of the PWM signal.
+Add a small delay after each adjustment to create a smooth fade effect.
+Hardware Required
+Arduino Uno
+1 x LED
+1 x Resistor (220 Ω)
+Jumper wires
+Breadboard
+Pin Connections
+LED:
+
+Anode (long leg) → Pin 9 (PWM pin on Arduino)
+Cathode (short leg) → Resistor → GND (Arduino)
+Power:
+
+Connect the Arduino to your computer via USB.
+Arduino Code
+cpp
+Copy code
+const int ledPin = 9;  // LED connected to PWM pin 9
+
+void setup() {
+  pinMode(ledPin, OUTPUT);  // Set pin 9 as output
+}
+
+void loop() {
+  // Gradually increase brightness
+  for (int brightness = 0; brightness <= 255; brightness++) {
+    analogWrite(ledPin, brightness);  // Set LED brightness
+    delay(10);  // Wait 10ms before increasing brightness
+  }
+
+  // Gradually decrease brightness
+  for (int brightness = 255; brightness >= 0; brightness--) {
+    analogWrite(ledPin, brightness);  // Set LED brightness
+    delay(10);  // Wait 10ms before decreasing brightness
+  }
+}
+Explanation of the Code
+const int ledPin = 9;
+
+The LED is connected to pin 9, which supports PWM output.
+pinMode(ledPin, OUTPUT);
+
+Configures pin 9 as an output to control the LED.
+Increasing Brightness (Fade In):
+
+cpp
+Copy code
+for (int brightness = 0; brightness <= 255; brightness++) {
+  analogWrite(ledPin, brightness);
+  delay(10);
+}
+Starts with a brightness value of 0 (LED off) and increments it to 255 (full brightness).
+analogWrite(ledPin, brightness) sets the LED brightness by varying the PWM duty cycle.
+A 10ms delay creates a smooth fading effect.
+Decreasing Brightness (Fade Out):
+
+cpp
+Copy code
+for (int brightness = 255; brightness >= 0; brightness--) {
+  analogWrite(ledPin, brightness);
+  delay(10);
+}
+Decreases the brightness from 255 to 0, dimming the LED gradually.
+Infinite Loop:
+
+The loop() function continuously fades the LED in and out.
+Observations
+The LED will gradually brighten and then dim in a smooth cycle.
+Adjust the delay(10) value to speed up or slow down the fading effect.
