@@ -1,0 +1,74 @@
+Pushbutton with 4 Terminals: Working Principle and Arduino Project
+
+Working Principle of a 4-Terminal Pushbutton
+Terminal Connections:
+
+A 4-terminal pushbutton typically has two pairs of internally connected terminals:
+1A and 1B are internally connected.
+2A and 2B are internally connected.
+These pairs are normally open (not connected) when the button is not pressed.
+
+
+When the Button is Not Pressed:
+1A-1B are connected internally but isolated from 2A-2B.
+No current flows between the two pairs.
+
+When the Button is Pressed:
+1A-1B and 2A-2B are electrically connected.
+This completes a circuit between the two pairs.
+
+Why Four Terminals?
+Provides flexibility to connect the button in different circuit configurations.
+Often used in circuits requiring multiple input/output connections.
+How to Use the 4-Terminal Pushbutton with Arduino
+
+Connections:
+Pushbutton:
+Connect 1A → GND (Ground).
+Connect 2A → Pin 2 (Digital Input Pin on Arduino).
+LED:
+Connect the positive leg (longer leg) of the LED to Pin 13.
+Connect the negative leg (shorter leg) of the LED to GND via a 220Ω resistor.
+Arduino Code
+This code turns on the LED when the button is pressed.
+
+Explanation
+Button Configuration:
+When the button is not pressed, Pin 2 reads HIGH due to the internal pull-up resistor.
+When the button is pressed, it connects Pin 2 to GND, making the pin state LOW.
+
+LED Behavior:
+LED turns ON when the button is pressed (buttonState == LOW).
+LED turns OFF when the button is not pressed.
+Testing the Pushbutton
+
+To verify the pushbutton's functionality:
+Use a multimeter in continuity mode.
+
+Test:
+Between 1A and 1B → Should always show continuity.
+Between 2A and 2B → Should always show continuity.
+Between 1A/1B and 2A/2B:
+No continuity when the button is not pressed.
+Continuity when the button is pressed.
+Circuit Diagram Overview
+
+Pushbutton Wiring:
+1A → GND
+2A → Pin 2 (Arduino)
+
+LED Wiring:
+Positive Leg (longer) → Pin 13
+Negative Leg (shorter) → Resistor → GND
+
+Troubleshooting
+Button State Always HIGH:
+Ensure correct connection to 1A → GND and 2A → Pin 2.
+Verify that INPUT_PULLUP is used in the code.
+
+LED Not Lighting Up:
+Check the LED polarity: the longer leg should connect to Pin 13.
+
+Button State Always LOW:
+Verify connections using a multimeter.
+Ensure no loose wires or faulty button.
