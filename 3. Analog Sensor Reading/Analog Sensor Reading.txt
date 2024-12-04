@@ -1,0 +1,61 @@
+CODE:
+
+const int sensorPin = A0;  // Analog sensor connected to A0
+
+void setup() {
+  Serial.begin(9600);  // Initialize Serial Monitor with 9600 baud rate
+}
+
+void loop() {
+  int sensorValue = analogRead(sensorPin);  // Read the analog sensor value
+  Serial.print("Sensor Value: ");           // Label for the output
+  Serial.println(sensorValue);             // Print the sensor value to Serial Monitor
+  delay(500);                              // Wait for 500 milliseconds
+}
+
+
+Potentiometer Setup
+What is a Potentiometer?
+
+A potentiometer is a variable resistor. By turning the knob, you change the resistance, which alters the voltage output.
+Connections:
+
+VCC Pin → Connect to 5V on the Arduino.
+GND Pin → Connect to GND on the Arduino.
+Output Pin (middle pin) → Connect to A0 on the Arduino.
+Code Explanation
+1. Setup Section
+cpp
+Copy code
+void setup() {
+  Serial.begin(9600);  // Initializes communication with the Serial Monitor at a baud rate of 9600
+}
+Purpose: Enables communication between the Arduino and your computer so that you can see the sensor values in the Serial Monitor.
+2. Loop Section
+cpp
+Copy code
+int sensorValue = analogRead(sensorPin);  // Read the analog sensor value
+Function: analogRead() reads the voltage from the potentiometer’s output pin.
+The potentiometer gives a voltage between 0V and 5V depending on its position.
+The Arduino converts this voltage into a digital value between 0 and 1023 (10-bit resolution).
+cpp
+Copy code
+Serial.print("Sensor Value: ");           // Label for the output
+Serial.println(sensorValue);             // Print the sensor value to Serial Monitor
+Function: Prints the label "Sensor Value: " followed by the actual value.
+If the potentiometer is turned to the minimum position (0V), you’ll see a value close to 0.
+If it’s turned to the maximum position (5V), you’ll see a value close to 1023.
+Intermediate positions will display values proportional to the voltage output.
+cpp
+Copy code
+delay(500);                              // Wait for 500 milliseconds
+Purpose: Adds a delay so the output in the Serial Monitor updates every 0.5 seconds, making it easier to read.
+How It Works
+Turn the Potentiometer Knob:
+
+This changes the resistance and the output voltage at the middle pin.
+The Arduino reads this voltage as a value between 0 and 1023.
+View in Serial Monitor:
+
+Open the Serial Monitor in the Arduino IDE and set the baud rate to 9600.
+Observe how the value changes as you turn the potentiometer.
