@@ -1,0 +1,23 @@
+// Define pin numbers
+const int potPin = A0;    // Potentiometer connected to analog pin A0
+const int ledPin = 9;     // LED connected to PWM pin 9
+
+void setup() {
+  // Initialize the LED pin as an OUTPUT
+  pinMode(ledPin, OUTPUT);
+  // No setup required for the potentiometer as it is an INPUT by default
+}
+
+void loop() {
+  // Read the analog value from the potentiometer (0 to 1023)
+  int potValue = analogRead(potPin); 
+
+  // Map the potentiometer value to a PWM range (0 to 255)
+  int pwmValue = map(potValue, 0, 1023, 0, 255); 
+
+  // Send the PWM signal to the LED to control brightness
+  analogWrite(ledPin, pwmValue);
+
+  // Small delay to stabilize the reading
+  delay(10);
+}
