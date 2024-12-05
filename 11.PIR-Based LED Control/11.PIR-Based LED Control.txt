@@ -1,0 +1,135 @@
+Code :
+// PIR-Based LED Control
+// LED turns on when motion is detected by the PIR sensor
+
+const int pirPin = 8;   // Pin connected to the PIR sensor
+const int ledPin = 9;   // Pin connected to the LED
+
+void setup() {
+  pinMode(pirPin, INPUT);   // Set PIR sensor pin as input
+  pinMode(ledPin, OUTPUT);  // Set LED pin as output
+  Serial.begin(9600);       // Start serial communication for debugging
+}
+
+void loop() {
+  int pirState = digitalRead(pirPin);  // Read the state of the PIR sensor
+
+  // Check if motion is detected
+  if (pirState == HIGH) {  // HIGH indicates motion detected
+    digitalWrite(ledPin, HIGH);  // Turn on the LED
+    Serial.println("Motion detected! LED ON");
+  } else {
+    digitalWrite(ledPin, LOW);   // Turn off the LED
+    Serial.println("No motion detected. LED OFF");
+  }
+
+  delay(500);  // Delay for 500 milliseconds before the next reading
+}
+
+
+
+Sure! If you'd like to use a PIR (Passive Infrared) sensor instead of a temperature sensor to control an LED based on motion detection, the basic idea remains the same, but now the LED will turn ON when motion is detected by the PIR sensor.
+
+PIR-Based LED Control
+Goal: To turn an LED ON or OFF based on motion detected by a PIR sensor.
+
+Concept: Use a PIR motion sensor to detect movement. If motion is detected, the LED will turn ON; if no motion is detected, the LED will remain OFF.
+
+Description: The program will monitor the state of the PIR sensor. When the sensor detects motion, it will trigger the LED to turn ON. If no motion is detected, the LED will remain OFF.
+
+Hardware Components
+Arduino Board (Uno, Nano, etc.):
+
+The main controller that reads data from the PIR sensor and controls the LED.
+PIR Sensor (HC-SR501 or similar):
+
+A motion detection sensor that detects infrared radiation (heat) changes, commonly used to detect human motion.
+LED:
+
+A basic LED that will be turned ON or OFF based on motion detection.
+Resistor (220Ω):
+
+Used to limit the current flowing through the LED to prevent damage to the LED and the Arduino.
+Jumper Wires and Breadboard:
+
+For connecting the components without soldering.
+Pin Connections
+PIR Sensor (HC-SR501):
+
+VCC: Connect to 5V pin on Arduino.
+GND: Connect to GND on Arduino.
+OUT (Signal Output): Connect to a digital pin on Arduino (e.g., Pin 8).
+LED:
+
+Anode (Long leg): Connect to a digital pin on Arduino (e.g., Pin 9).
+Cathode (Short leg): Connect to GND through a 220Ω resistor.
+Arduino:
+
+The PIR sensor is connected to a digital pin (Pin 8) for detecting motion.
+The LED is connected to a digital pin (Pin 9) for control.
+Code
+cpp
+Copy code
+// PIR-Based LED Control
+// LED turns on when motion is detected by the PIR sensor
+
+const int pirPin = 8;   // Pin connected to the PIR sensor
+const int ledPin = 9;   // Pin connected to the LED
+
+void setup() {
+  pinMode(pirPin, INPUT);   // Set PIR sensor pin as input
+  pinMode(ledPin, OUTPUT);  // Set LED pin as output
+  Serial.begin(9600);       // Start serial communication for debugging
+}
+
+void loop() {
+  int pirState = digitalRead(pirPin);  // Read the state of the PIR sensor
+
+  // Check if motion is detected
+  if (pirState == HIGH) {  // HIGH indicates motion detected
+    digitalWrite(ledPin, HIGH);  // Turn on the LED
+    Serial.println("Motion detected! LED ON");
+  } else {
+    digitalWrite(ledPin, LOW);   // Turn off the LED
+    Serial.println("No motion detected. LED OFF");
+  }
+
+  delay(500);  // Delay for 500 milliseconds before the next reading
+}
+How It Works
+Pin Setup:
+
+The PIR sensor is connected to pin 8 and configured as an input using pinMode(pirPin, INPUT).
+The LED is connected to pin 9 and set as an output using pinMode(ledPin, OUTPUT).
+Reading the PIR Sensor:
+
+The PIR sensor has an OUT pin that outputs a HIGH signal when motion is detected and a LOW signal when no motion is detected. This is read using the digitalRead(pirPin) function.
+If motion is detected, the digitalWrite(ledPin, HIGH) turns the LED ON. If no motion is detected, digitalWrite(ledPin, LOW) turns the LED OFF.
+Serial Monitor Output:
+
+For debugging, the program prints whether motion is detected or not on the Serial Monitor.
+If motion is detected, "Motion detected! LED ON" will be printed, and if no motion is detected, "No motion detected. LED OFF" will be printed.
+Delay:
+
+A small delay of 500 milliseconds (delay(500)) is added to prevent multiple rapid readings and to make the motion detection more stable.
+Testing the Circuit
+Connect the Components:
+
+Connect the PIR sensor and the LED to the Arduino according to the Pin Connections section.
+Upload the Code:
+
+Upload the provided code to your Arduino using the Arduino IDE.
+View the Results:
+
+Open the Serial Monitor to see the messages ("Motion detected! LED ON" or "No motion detected. LED OFF").
+When motion is detected by the PIR sensor, the LED will turn ON, and when no motion is detected, the LED will turn OFF.
+Optional Enhancements
+Adjust Sensitivity of PIR Sensor:
+
+Some PIR sensors (e.g., HC-SR501) have adjustable sensitivity and delay via potentiometers. You can adjust these settings to fine-tune the sensor's behavior.
+Add a Timeout Feature:
+
+If you want the LED to stay ON for a set time after motion is detected, you can use the millis() function to add a timeout.
+Multiple LEDs:
+
+You can control multiple LEDs based on different conditions or the number of movements detected using additional logic.

@@ -1,0 +1,113 @@
+Code :
+// Goal: Demonstrate sending and receiving data via serial communication
+// Stop output when '0' is received, and resume when '1' is received.
+
+bool stopOutput = false; // Tracks if the output should stop
+
+void setup() {
+  Serial.begin(9600); // Start serial communication
+  Serial.println("Send '0' to stop or '1' to resume output."); // Instruction
+}
+
+void loop() {
+  // Check if there's data from the Serial Monitor
+  if (Serial.available() > 0) {
+    char receivedChar = Serial.read(); // Read the incoming character
+
+    // Check for '0' or '1' to control output
+    if (receivedChar == '0') {
+      stopOutput = true; // Stop output
+      Serial.println("Output stopped.");
+    } else if (receivedChar == '1') {
+      stopOutput = false; // Resume output
+      Serial.println("Output resumed.");
+    } else {
+      // Echo other inputs
+      Serial.print("You sent: ");
+      Serial.println(receivedChar);
+    }
+  }
+
+  // Only send output if not stopped
+  if (!stopOutput) {
+    Serial.println("Hello from Arduino!");
+    delay(1000); // Wait for 1 second
+  }
+}
+
+
+Hardware Components
+Arduino Uno (or any Arduino Board):
+
+Used to establish the serial communication.
+Its onboard USB interface is used for data transfer.
+USB Cable:
+
+Connects the Arduino to the PC for power and data transmission.
+PC with Arduino IDE:
+
+Provides the Serial Monitor to send and view the data.
+Pin Connections
+Arduino USB Port:
+
+No additional wiring is needed for serial communication since the USB cable handles data transfer.
+Onboard LEDs (Optional):
+
+The onboard LED connected to pin 13 can be used for visual feedback if modified for blinking.
+Code
+cpp
+Copy code
+// Goal: Demonstrate sending and receiving data via serial communication.
+
+void setup() {
+  Serial.begin(9600); // Initialize serial communication at 9600 baud rate
+  Serial.println("Serial Communication Initialized!"); // Display a welcome message
+}
+
+void loop() {
+  // Check if data is available to read from the Serial Monitor
+  if (Serial.available() > 0) {
+    char receivedChar = Serial.read(); // Read the incoming character
+    Serial.print("You sent: "); // Acknowledge received character
+    Serial.println(receivedChar); // Echo it back to the Serial Monitor
+  }
+
+  // Sending data to the Serial Monitor
+  Serial.println("Hello from Arduino!");
+  delay(1000); // Wait for 1 second before sending the next message
+}
+How It Works
+Setup:
+
+The Serial.begin(9600) function initializes serial communication at 9600 baud, which must match the Serial Monitor settings.
+A message, "Serial Communication Initialized!", is displayed on the Serial Monitor.
+Receiving Data:
+
+The Serial.available() function checks if data is available to read from the Serial Monitor.
+If data is received, the Serial.read() function captures it, and the Arduino echoes it back with the message "You sent: [character]".
+Sending Data:
+
+The Arduino sends "Hello from Arduino!" to the Serial Monitor every second using Serial.println().
+Steps to Test
+Connect the Arduino:
+
+Use the USB cable to connect the Arduino board to your PC.
+Open Arduino IDE:
+
+Load the code into the IDE and upload it to the Arduino.
+Open Serial Monitor:
+
+In the Arduino IDE, go to Tools > Serial Monitor. Set the baud rate to 9600.
+Test Input/Output:
+
+Observe the "Hello from Arduino!" messages on the Serial Monitor.
+Type a character or message in the input field of the Serial Monitor and press send.
+The Arduino will echo the received input with "You sent: [character]".
+Optional Enhancements
+Add a Button:
+Use a push button to stop or resume the message transmission. Modify the code accordingly.
+
+Add LEDs:
+Blink the onboard LED when data is received for visual feedback.
+
+This project is an excellent introduction to serial communication for beginners, combining basic concepts with hands-on interaction!
