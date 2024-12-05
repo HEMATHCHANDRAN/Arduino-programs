@@ -1,0 +1,144 @@
+// Define RGB LED Pins
+const int redPin = 9;
+const int greenPin = 10;
+const int bluePin = 11;
+
+void setup() {
+  // Set RGB pins as output
+  pinMode(redPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
+}
+
+void loop() {
+  // Display Red
+  digitalWrite(redPin, HIGH);
+  digitalWrite(greenPin, LOW);
+  digitalWrite(bluePin, LOW);
+  delay(1000);
+
+  // Display Green
+  digitalWrite(redPin, LOW);
+  digitalWrite(greenPin, HIGH);
+  digitalWrite(bluePin, LOW);
+  delay(1000);
+
+  // Display Blue
+  digitalWrite(redPin, LOW);
+  digitalWrite(greenPin, LOW);
+  digitalWrite(bluePin, HIGH);
+  delay(1000);
+
+  // Turn off all colors
+  digitalWrite(redPin, LOW);
+  digitalWrite(greenPin, LOW);
+  digitalWrite(bluePin, LOW);
+  delay(500);
+}
+
+Components Used:
+RGB LED: This LED has three colors in one package: Red, Green, and Blue. It has four pins:
+
+Cathode (Common Ground): This pin is shared by all three colors and should be connected to the ground (GND) pin on the Arduino.
+Red Pin: Controls the intensity of the red color.
+Green Pin: Controls the intensity of the green color.
+Blue Pin: Controls the intensity of the blue color.
+Resistors: Each color pin typically needs a resistor to limit current and prevent damage to the LED. A 220Ω or 330Ω resistor is commonly used.
+
+Detailed Code Explanation:
+cpp
+Copy code
+// Define RGB LED Pins
+const int redPin = 9;
+const int greenPin = 10;
+const int bluePin = 11;
+Purpose: We define three variables (redPin, greenPin, bluePin) that represent the pins on the Arduino that will control each color channel of the RGB LED.
+These pins (9, 10, 11) are connected to the respective color pins of the RGB LED.
+cpp
+Copy code
+void setup() {
+  // Set RGB pins as output
+  pinMode(redPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
+}
+Purpose: The setup() function runs once when the Arduino is powered on or reset. It configures the pins (redPin, greenPin, and bluePin) as output pins.
+The RGB LED needs to receive electrical signals to light up. The Arduino will send digital signals (HIGH or LOW) to these pins to control the brightness of the LED's colors.
+cpp
+Copy code
+void loop() {
+  // Display Red
+  digitalWrite(redPin, HIGH);
+  digitalWrite(greenPin, LOW);
+  digitalWrite(bluePin, LOW);
+  delay(1000);
+
+  // Display Green
+  digitalWrite(redPin, LOW);
+  digitalWrite(greenPin, HIGH);
+  digitalWrite(bluePin, LOW);
+  delay(1000);
+
+  // Display Blue
+  digitalWrite(redPin, LOW);
+  digitalWrite(greenPin, LOW);
+  digitalWrite(bluePin, HIGH);
+  delay(1000);
+
+  // Turn off all colors
+  digitalWrite(redPin, LOW);
+  digitalWrite(greenPin, LOW);
+  digitalWrite(bluePin, LOW);
+  delay(500);
+}
+Purpose: The loop() function repeats indefinitely after the setup() function. It controls the on/off state of the RGB LED by sending signals to the red, green, and blue pins.
+Working Principle:
+Displaying Colors:
+
+The colors of the RGB LED are controlled by digital pins on the Arduino.
+
+For each color (Red, Green, Blue):
+
+We turn on the corresponding color pin by setting it to HIGH.
+We turn off the other two pins by setting them to LOW.
+This creates the desired color.
+Red Color:
+
+digitalWrite(redPin, HIGH) turns on the red pin, making the red color visible.
+digitalWrite(greenPin, LOW) and digitalWrite(bluePin, LOW) turn off the green and blue components.
+The LED displays pure red.
+Green Color:
+
+digitalWrite(redPin, LOW) and digitalWrite(bluePin, LOW) turn off red and blue.
+digitalWrite(greenPin, HIGH) turns on the green component, displaying green.
+Blue Color:
+
+digitalWrite(redPin, LOW) and digitalWrite(greenPin, LOW) turn off red and green.
+digitalWrite(bluePin, HIGH) turns on the blue component, displaying blue.
+Delays:
+
+After each color is displayed, the delay(1000) function is used to wait for 1 second before switching to the next color.
+After the blue color, delay(500) waits for 0.5 seconds before turning off the LED completely.
+Turning Off All Colors:
+
+digitalWrite(redPin, LOW), digitalWrite(greenPin, LOW), and digitalWrite(bluePin, LOW) turn off all three colors, and the LED becomes off.
+PWM vs. Digital Signals:
+In this code, we are using digital signals to turn on or off the colors of the RGB LED. The state is either HIGH (on) or LOW (off). This is a simple method to control the LED.
+
+However, you could use PWM (Pulse Width Modulation) to create different shades of each color by adjusting the brightness of each pin. PWM involves varying the amount of time the pin is HIGH or LOW within a given period. This gives the effect of dimming or brightening the LED, which would allow for creating intermediate colors.
+
+For example, if you want to display a pink color, you would combine red and blue at full brightness and adjust the green pin to a lower brightness using PWM.
+
+Working Principle Summary:
+The RGB LED is a combination of three colored LEDs (red, green, and blue). By turning on different combinations of these colors, you can create a wide range of colors.
+Each color is controlled by a digital signal (either HIGH or LOW) sent to the corresponding pin of the Arduino.
+By turning on one color at a time and off the others, the RGB LED shows red, green, and blue sequentially.
+A delay() is used to keep the colors visible for a specified period, and after displaying all colors, the LED is turned off.
+Conclusion:
+This simple RGB LED control project helps understand how LEDs can be controlled using digital signals. The code is designed to show basic colors by turning each LED color on and off, allowing you to visually experience how combining different color intensities leads to various visible colors.
+
+If you want to enhance this, you can use PWM to adjust the intensity of each color for more nuanced control over the LED’s output!S
+
+
+
+

@@ -1,0 +1,131 @@
+#include <Servo.h>
+
+// Define the potentiometer pin and the servo pin
+const int potentiometerPin = A0;  // Analog pin where potentiometer is connected
+const int servoPin = 9;           // PWM pin to control the servo
+
+// Create a Servo object
+Servo myServo;
+
+void setup() {
+  // Attach the servo to the PWM pin
+  myServo.attach(servoPin);
+}
+
+void loop() {
+  // Read the value from the potentiometer (0-1023)
+  int potValue = analogRead(potentiometerPin);
+
+  // Map the potentiometer value (0-1023) to the servo angle (0-180)
+  int servoAngle = map(potValue, 0, 1023, 0, 180);
+
+  // Set the servo to the mapped angle
+  myServo.write(servoAngle);
+
+  // Wait for a short time to allow the servo to reach the position
+  delay(15);
+}
+
+
+Components Needed:
+Arduino (e.g., Arduino Uno)
+Servo Motor
+Potentiometer
+Jumper Wires
+Breadboard
+Wiring Diagram:
+Potentiometer:
+VCC (5V) → Connect to the 5V pin on the Arduino.
+GND → Connect to the GND pin on the Arduino.
+Signal (wiper) → Connect to an analog pin on the Arduino (e.g., A0).
+Servo Motor:
+VCC (5V) → Connect to the 5V pin on the Arduino.
+GND → Connect to the GND pin on the Arduino.
+Signal (control) → Connect to a PWM-capable pin on the Arduino (e.g., Pin 9).
+Code to Control Servo using Potentiometer:
+cpp
+Copy code
+#include <Servo.h>
+
+// Define the potentiometer pin and the servo pin
+const int potentiometerPin = A0;  // Analog pin where potentiometer is connected
+const int servoPin = 9;           // PWM pin to control the servo
+
+// Create a Servo object
+Servo myServo;
+
+void setup() {
+  // Attach the servo to the PWM pin
+  myServo.attach(servoPin);
+}
+
+void loop() {
+  // Read the value from the potentiometer (0-1023)
+  int potValue = analogRead(potentiometerPin);
+
+  // Map the potentiometer value (0-1023) to the servo angle (0-180)
+  int servoAngle = map(potValue, 0, 1023, 0, 180);
+
+  // Set the servo to the mapped angle
+  myServo.write(servoAngle);
+
+  // Wait for a short time to allow the servo to reach the position
+  delay(15);
+}
+Explanation of the Code:
+Libraries and Pin Definitions:
+
+#include <Servo.h>: This includes the Servo library, which is used to control servo motors.
+const int potentiometerPin = A0;: The potentiometer is connected to analog pin A0.
+const int servoPin = 9;: The servo is connected to PWM pin 9.
+Servo Object:
+
+Servo myServo;: We create a Servo object that allows us to control the servo motor.
+Setup Function:
+
+myServo.attach(servoPin);: This line connects the Servo object to the specified PWM pin (pin 9). This allows the Arduino to control the servo connected to this pin.
+Loop Function:
+
+int potValue = analogRead(potentiometerPin);: This reads the analog value from the potentiometer. The potentiometer gives a value between 0 and 1023, where 0 means no rotation (minimum position) and 1023 means full rotation (maximum position).
+
+int servoAngle = map(potValue, 0, 1023, 0, 180);: The map() function converts the potentiometer’s value (0-1023) to a value suitable for the servo motor (0-180 degrees). The servo motor typically has a rotation range of 0 to 180 degrees.
+
+myServo.write(servoAngle);: This line sends the mapped value (servo angle) to the servo motor to set its position.
+
+delay(15);: The delay gives the servo motor a little time to reach the target angle. It's usually enough for the servo to adjust to the new position.
+
+How It Works:
+Reading Potentiometer:
+
+The potentiometer is an analog sensor that provides a value based on its rotation. When you turn the potentiometer knob, it generates a voltage between 0 and 5V, which the Arduino reads as a value between 0 and 1023 (using analogRead()).
+Mapping the Value:
+
+The map() function takes the 0-1023 value from the potentiometer and converts it to a range of 0 to 180 degrees, which is the range the servo can move in.
+Controlling the Servo:
+
+The servo motor receives the mapped value through myServo.write(), which moves the servo to the specified angle.
+Smooth Adjustment:
+
+The delay(15) ensures that the servo motor has enough time to adjust to each new angle. Without this, the servo could move too quickly, possibly resulting in jerky movements.
+Working Principle:
+Potentiometer: It works like a variable resistor that adjusts the voltage sent to the Arduino's analog input pin. As you turn the potentiometer knob, the voltage changes, and the Arduino reads this change as a value between 0 and 1023.
+
+Mapping: The map() function is crucial here as it converts the potentiometer's 0-1023 range into a usable 0-180 range, which corresponds to the servo's rotation limits.
+
+Servo Motor: The servo motor has a motor inside it that moves to a specific angle when given a pulse signal. The Arduino sends this pulse based on the value it gets from the potentiometer, effectively controlling the position of the servo.
+
+Improvement Ideas:
+Add a Button: You can add a button to reset the servo position back to 0° or 180° whenever the button is pressed.
+Smooth Movement: If you want smoother servo movement, you can use the Servo.writeMicroseconds() function to gradually change the servo’s position.
+Multiple Servos: You can extend this project to control multiple servos using different potentiometers.
+Conclusion:
+This project teaches you how to use an analog input (potentiometer) to control a servo motor. By adjusting the potentiometer, the Arduino reads the value and maps it to a range that the servo motor can understand. It's a great project to practice reading analog signals and controlling motors in a simple way.
+
+Feel free to modify this setup to control multiple servos or add other inputs to make it more interactive!
+
+
+
+
+
+
+
