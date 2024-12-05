@@ -1,0 +1,96 @@
+Components Needed:
+Arduino (e.g., Arduino Uno)
+DC Motor
+Motor Driver (e.g., L298N)
+Potentiometer
+Jumper Wires
+External Power Supply (for the motor)
+Wiring Diagram:
+Potentiometer:
+
+VCC → Connect to the 5V pin on the Arduino.
+GND → Connect to the GND pin on the Arduino.
+Signal (Middle Pin) → Connect to an analog input pin on the Arduino (e.g., A0).
+DC Motor:
+
+Motor terminals → Connect to the output pins of the motor driver (e.g., OUT1 and OUT2 for motor A).
+Motor Driver Input Pins (IN1 and IN2) → Connect to digital pins on the Arduino (e.g., D5 and D6).
+Motor Driver Power (VCC) → Connect to an external power supply suitable for the motor.
+Motor Driver GND → Connect to GND on the Arduino.
+Code for PWM Motor Speed Control:
+cpp
+Copy code
+const int potPin = A0;      // Pin connected to the potentiometer (analog input)
+const int motorPin = 5;     // Pin connected to the motor driver (PWM input)
+
+int potValue = 0;           // Variable to store the potentiometer value
+int motorSpeed = 0;         // Variable to store the motor speed
+
+void setup() {
+  // Start the serial communication to monitor potentiometer value
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Read the potentiometer value (0 to 1023)
+  potValue = analogRead(potPin);
+
+  // Map the potentiometer value to PWM range (0 to 255)
+  motorSpeed = map(potValue, 0, 1023, 0, 255);
+
+  // Set the motor speed using PWM
+  analogWrite(motorPin, motorSpeed);
+
+  // Print the potentiometer value and motor speed to the Serial Monitor
+  Serial.print("Potentiometer Value: ");
+  Serial.print(potValue);
+  Serial.print(" | Motor Speed: ");
+  Serial.println(motorSpeed);
+
+  // Delay for a short time to stabilize
+  delay(100);
+}
+Explanation of the Code:
+Pin Setup:
+
+const int potPin = A0;: The potentiometer is connected to analog pin A0.
+const int motorPin = 5;: The motor driver PWM input is connected to digital pin 5 (which supports PWM output on Arduino Uno).
+Reading the Potentiometer:
+
+potValue = analogRead(potPin);: The analogRead() function reads the potentiometer value, which ranges from 0 to 1023. This represents the rotation of the potentiometer (from 0% to 100% of its range).
+Mapping the Potentiometer Value:
+
+motorSpeed = map(potValue, 0, 1023, 0, 255);: The map() function maps the potentiometer value (which ranges from 0 to 1023) to a range suitable for controlling the motor's speed (0 to 255), which corresponds to the PWM duty cycle.
+Controlling the Motor Speed:
+
+analogWrite(motorPin, motorSpeed);: The analogWrite() function is used to send a PWM signal to the motor driver. The motor's speed is adjusted based on the motorSpeed value, which corresponds to the duty cycle of the PWM signal.
+Monitoring the Potentiometer and Motor Speed:
+
+The Serial Monitor prints the potentiometer value and the corresponding motor speed (PWM value) in real-time.
+Serial.print() and Serial.println() are used to send this data to the Serial Monitor for monitoring.
+Delay:
+
+delay(100);: A small delay is introduced to make the system more stable and prevent the values from updating too rapidly.
+How It Works:
+Reading the Potentiometer:
+
+As you rotate the potentiometer, its resistance changes, and the Arduino reads this change as a value between 0 and 1023. This value is proportional to the position of the potentiometer (from 0% to 100% of its range).
+Mapping to PWM:
+
+The map() function converts the potentiometer value (0 to 1023) to a range of 0 to 255. This is the range used to control the speed of the DC motor with PWM, where 0 represents stopped and 255 represents full speed.
+Motor Speed Control:
+
+The analogWrite() function sends a PWM signal to the motor driver. The motor speed is proportional to the PWM duty cycle, so adjusting the potentiometer will increase or decrease the motor speed.
+Monitoring:
+
+The potentiometer value and the corresponding motor speed are displayed on the Serial Monitor so you can observe the real-time changes as you adjust the potentiometer.
+Conclusion:
+This project demonstrates how to use PWM to control the speed of a DC motor based on the input from a potentiometer. By adjusting the potentiometer, you can smoothly control the speed of the motor, providing a hands-on demonstration of analog input and PWM output with an Arduino.
+
+You can expand this project to control multiple motors, add more sensors, or even incorporate different types of motor drivers based on your project requirements.
+
+
+
+
+
+

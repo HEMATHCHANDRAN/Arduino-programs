@@ -1,0 +1,90 @@
+Components Needed:
+Arduino (e.g., Arduino Uno)
+Ultrasonic Sensor (HC-SR04) (or similar with three pins: SIG, Power, and Ground)
+Jumper Wires
+Breadboard
+Wiring Diagram:
+Ultrasonic Sensor Pins:
+VCC → Connect to the 5V pin on the Arduino.
+GND → Connect to the GND pin on the Arduino.
+SIG (Signal) → Connect to a digital pin on the Arduino (e.g., D7).
+Note: In your case, since you're using the three-pin version, the Signal Pin (SIG) will act as both Trigger and Echo in this simplified version. So, we will be combining both functions (sending and receiving the ultrasonic signal) into one pin in the code.
+Code for Ultrasonic Distance Measurement:
+cpp
+Copy code
+const int sensorPin = 7;  // Pin connected to the SIG (Signal) of the Ultrasonic Sensor
+long duration;
+int distance;
+
+void setup() {
+  // Start the serial communication at 9600 baud rate
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Send the ultrasonic pulse (Trigger) by sending a HIGH signal on the SIG pin
+  pinMode(sensorPin, OUTPUT); // Set the sensorPin as an output pin
+  digitalWrite(sensorPin, LOW); // Ensure the pin is LOW initially
+  delayMicroseconds(2); // Wait for a short period
+  digitalWrite(sensorPin, HIGH); // Send the ultrasonic pulse
+  delayMicroseconds(10); // Pulse duration
+  digitalWrite(sensorPin, LOW); // Stop the pulse
+
+  // Now, switch to INPUT mode to receive the echo (Response) from the object
+  pinMode(sensorPin, INPUT); // Set the sensorPin as an input pin
+  duration = pulseIn(sensorPin, HIGH); // Measure the time it takes for the echo to return
+
+  // Calculate the distance (Speed of sound is 343 m/s, or 0.0343 cm/us)
+  distance = duration * 0.0343 / 2; // Divide by 2 because the pulse travels to the object and back
+
+  // Print the distance on Serial Monitor
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+
+  delay(500); // Wait for half a second before taking another reading
+}
+Explanation of the Code:
+Pin Setup:
+
+const int sensorPin = 7;: The Signal (SIG) pin of the ultrasonic sensor is connected to digital pin 7 on the Arduino.
+Setup Serial Communication:
+
+Serial.begin(9600);: Initializes serial communication at a baud rate of 9600 to send the distance data to the Serial Monitor.
+Sending Ultrasonic Pulse (Trigger):
+
+pinMode(sensorPin, OUTPUT);: Sets the sensorPin as an output so that we can send the signal.
+digitalWrite(sensorPin, LOW);: Ensures the pin is LOW to start with.
+delayMicroseconds(2);: Waits for 2 microseconds to ensure a clean transition.
+digitalWrite(sensorPin, HIGH);: Sends a HIGH signal to trigger the ultrasonic pulse.
+delayMicroseconds(10);: Keeps the pin HIGH for 10 microseconds to generate the pulse.
+digitalWrite(sensorPin, LOW);: Ends the pulse by setting the pin back to LOW.
+Receiving Echo (Signal Reflection):
+
+pinMode(sensorPin, INPUT);: Switches the sensorPin to input mode to receive the echo signal.
+duration = pulseIn(sensorPin, HIGH);: The pulseIn() function measures the time it takes for the echo to return to the sensor. The function returns the duration in microseconds.
+Calculating Distance:
+
+The formula to calculate the distance is:
+distance = (duration × 0.0343)/2
+​
+ 
+The 0.0343 is the speed of sound in cm/us (centimeters per microsecond).
+We divide by 2 because the pulse travels to the object and then returns, so the measured time is for the round trip.
+Displaying the Distance:
+
+Serial.print("Distance: "); and Serial.println(distance);: These lines send the calculated distance (in centimeters) to the Serial Monitor.
+delay(500);: Introduces a half-second delay before the next measurement to avoid overwhelming the serial output.
+How It Works:
+Triggering the Pulse: The Arduino sends a short ultrasonic pulse from the sensorPin to the ultrasonic sensor. This pulse travels through the air, hits an object, and reflects back to the sensor.
+
+Echo Reception: The sensorPin switches to input mode, and the Arduino measures how long it takes for the reflected pulse (echo) to return to the sensor.
+
+Distance Calculation: The Arduino uses the time it took for the echo to return to calculate the distance to the object using the speed of sound.
+
+Real-Time Output: The calculated distance is continuously displayed on the Serial Monitor.
+
+Conclusion:
+This simple project demonstrates how to use an ultrasonic sensor with a three-pin configuration to measure the distance to an object. By triggering and receiving the ultrasonic pulses, the Arduino calculates the distance based on the round-trip travel time of the sound waves.
+
+Feel free to experiment with different distances and objects, and explore more complex applications, such as obstacle detection or proximity-based actions!
