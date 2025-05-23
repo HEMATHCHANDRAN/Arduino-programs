@@ -45,6 +45,13 @@ void loop() {
   // Wait for a short period before the next reading
   delay(500);  
 }
+
+
+
+
+
+
+
 Explanation of the Code:
 Pin Setup:
 
